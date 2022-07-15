@@ -175,11 +175,11 @@
     align-items: center;
     padding: 15px;
     position: relative;
-    background: #282c34;
-    background: -webkit-linear-gradient(-135deg, #282c34, #151a30);
-    background: -o-linear-gradient(-135deg, #282c34, #151a30);
-    background: -moz-linear-gradient(-135deg, #282c34, #151a30);
-    background: linear-gradient(-135deg, #282c34, #151a30);
+    background: #08080e;
+    background: -webkit-linear-gradient(-135deg, #282c34, #08080e);
+    background: -o-linear-gradient(-135deg, #282c34, #08080e);
+    background: -moz-linear-gradient(-135deg, #282c34, #08080e);
+    background: linear-gradient(-135deg, #282c34, #08080e);
   }
   
   .t_wrap-login100 {
@@ -215,7 +215,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-image: url("../images/block.webp");
+    background-image: url("../images/back2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 50px;

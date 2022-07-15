@@ -1,7 +1,7 @@
 import '../css/employee.css';
 import '../css/util.css';
 
-import '../images/block.webp'
+import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
 
 function EmployeeForm() {
