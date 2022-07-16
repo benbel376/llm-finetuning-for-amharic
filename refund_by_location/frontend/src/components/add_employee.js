@@ -1,18 +1,23 @@
 import '../css/employee.css';
 import '../css/util.css';
 import {useState} from 'react';
+import { ethers } from "ethers";
 import MapShow from "./map.js";
 import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
-import Web3 from 'web3'
 
-if(typeof web3 != 'undefined'){
-    console.log("Using web3 detected from external source like Metamask")
-    this.web3 = new Web3(web3.currentProvider)
- }else{
-    this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
- }
- const MyContract = web3.eth.contract([
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+const signer = provider.getSigner();
+
+const Web3 = require('web3');
+const ethNetwork = 'https://rinkeby.infura.io/v3/3c1588b618334c318768c14084253441';
+const web3 = new Web3(new Web3.providers.HttpProvider(ethNetwork));
+console.log("Connection Successfull!");
+console.log("Latest Block Number: ");
+web3.eth.getBlockNumber().then(console.log);
+
+const MyContract = new web3.eth.Contract(
+    [
 	{
 		"inputs": [
 			{
@@ -160,8 +165,17 @@ if(typeof web3 != 'undefined'){
 		"stateMutability": "view",
 		"type": "function"
 	}
-])
-const ContractInstance = MyContract.at("0xf27dce4127319e27e7996dbd1c46a1ddc5799c99")
+], "0xf27dce4127319e27e7996dbd1c46a1ddc5799c99");
+// Asking if metamask is already present or not
+if (window.ethereum) {
+    // res[0] for fetching a first wallet
+    window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((res) => {alert(res[0])});
+} else {
+    alert("install metamask extension!!");
+}
+//const ContractInstance = MyContract.at("0xf27dce4127319e27e7996dbd1c46a1ddc5799c99")
 
 function EmployeeForm() {
     const onSubmit = (e) => {
@@ -175,7 +189,11 @@ function EmployeeForm() {
     const [addr, setAddr] = useState('0x793750185u1873515613');
     const [budget, setBudget] = useState(1000);
     function handle_collect() {
-        ContractInstance.add_employee(addr, lon, lat, radi, budget)
+        console.log("begining of line")
+        MyContract.methods.add_employee(addr, lon, lat, radi, budget).send({
+            from: "0x6789546d8e4632ec54740943e41ae1f7d0647f62"
+         }).then(receipt => {console.log(receipt)})
+         console.log("end of line")
     }
   return (
     <div class="t_limiter">
