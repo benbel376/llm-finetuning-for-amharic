@@ -1,8 +1,167 @@
 import '../css/employee.css';
 import '../css/util.css';
 import {useState} from 'react';
+import MapShow from "./map.js";
 import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
+import Web3 from 'web3'
+
+if(typeof web3 != 'undefined'){
+    console.log("Using web3 detected from external source like Metamask")
+    this.web3 = new Web3(web3.currentProvider)
+ }else{
+    this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+ }
+ const MyContract = web3.eth.contract([
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "id",
+				"type": "address"
+			},
+			{
+				"internalType": "int256",
+				"name": "lat",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "lon",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "rad",
+				"type": "int256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "fund",
+				"type": "uint8"
+			}
+		],
+		"name": "add_employee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "int256",
+				"name": "lat",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "lon",
+				"type": "int256"
+			}
+		],
+		"name": "check_position",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "kill",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			}
+		],
+		"name": "pay",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "contractInfo",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "center_lat",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "center_lon",
+				"type": "int256"
+			},
+			{
+				"internalType": "int256",
+				"name": "radius",
+				"type": "int256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "budget",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "employees",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+])
+const ContractInstance = MyContract.at("0xf27dce4127319e27e7996dbd1c46a1ddc5799c99")
 
 function EmployeeForm() {
     const onSubmit = (e) => {
@@ -16,7 +175,7 @@ function EmployeeForm() {
     const [addr, setAddr] = useState('0x793750185u1873515613');
     const [budget, setBudget] = useState(1000);
     function handle_collect() {
-        console.log(lat)
+        
     }
   return (
     <div class="t_limiter">
@@ -34,6 +193,7 @@ function EmployeeForm() {
                     <input id = "address" class="address t_input100" type="text" placeholder={addr} onChange={(e)=>{setAddr(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
+                
                 <div class="t_title">
                     Provide Geographic Boundary
                 </div>
@@ -58,7 +218,7 @@ function EmployeeForm() {
                 </div>
                 <div class="t_container-login100-form-btn">
                     <button class="collect t_login100-form-btn" onClick={handle_collect}>
-                        Request
+                        Add Employee
                     </button>
                 </div>
 
