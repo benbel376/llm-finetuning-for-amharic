@@ -175,7 +175,7 @@ function EmployeeForm() {
     const [addr, setAddr] = useState('0x793750185u1873515613');
     const [budget, setBudget] = useState(1000);
     function handle_collect() {
-        
+        ContractInstance.add_employee(addr, lon, lat, radi, budget)
     }
   return (
     <div class="t_limiter">
@@ -190,7 +190,7 @@ function EmployeeForm() {
                     Provide Employee Address
                 </div>
                 <div class="t_wrap-input100 t_validate-input">
-                    <input id = "address" class="address t_input100" type="text" placeholder={addr} onChange={(e)=>{setAddr(e.target.value)}}/>
+                    <input id = "address" class="address t_input100" type="text" placeholder="Address" onChange={(e)=>{setAddr(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
                 
@@ -198,22 +198,22 @@ function EmployeeForm() {
                     Provide Geographic Boundary
                 </div>
                 <div class="t_wrap-input100 t_validate-input">
-                    <input id = "long" class="center_lon t_input100" type="text" placeholder={lon} onChange={(e)=>{setLon(e.target.value)}}/>
+                    <input id = "long" class="center_lon t_input100" type="text" placeholder="Center Lon." onChange={(e)=>{setLon(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
                 <div class="t_wrap-input100 t_validate-input">
-                    <input id = "lati" class="center_lat t_input100" type="text" placeholder={lat} onChange={(e)=>{setLat(e.target.value)}}/>
+                    <input id = "lati" class="center_lat t_input100" type="text" placeholder="Center Lat." onChange={(e)=>{setLat(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
                 <div class="t_wrap-input100 t_validate-input">
-                    <input id = "radius" class="t_input100" type="text" placeholder={radi} onChange={(e)=>{setRadius(e.target.value)}}/>
+                    <input id = "radius" class="t_input100" type="text" placeholder="Radius" onChange={(e)=>{setRadius(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
                 <div class="t_title">
                     Specify Allocated Budget
                 </div>
                 <div class="t_wrap-input100 t_validate-input">
-                    <input id = "budget" class="t_input100" type="text" onChange={(e)=>{setBudget(e.target.value)}}/>
+                    <input id = "budget" class="t_input100" type="text" placeholder='Budget' onChange={(e)=>{setBudget(e.target.value)}}/>
                     <span class="t_focus-input100"></span>
                 </div>
                 <div class="t_container-login100-form-btn">
