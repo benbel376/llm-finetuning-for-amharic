@@ -30,8 +30,15 @@ contract refunderContract{
       if(msg.sender == owner) selfdestruct(payable(owner));
     }
 
-    function add_employee(address id, int256 lat, int256 lon, uint32 rad, uint8 fund, bool stat) public {
+    function check_existance(address employee) public constant returns(bool){
+      for(uint256 i = 0; i < employee.length; i++){
+         if(employees[i] == employee) return true;
+      }
+      return false;
+    }
 
+    function add_employee(address id, int256 lat, int256 lon, uint32 rad, uint8 fund, bool stat) public {
+        require(!check_existance(id));
         contractInfo[id].center_lat = lat;
         contractInfo[id].center_lon = lon;
         contractInfo[id].budget = fund;
@@ -40,13 +47,7 @@ contract refunderContract{
         employees.push(id);
 
     }
-    function check_existance(address employee) public constant returns(bool){
-      for(uint256 i = 0; i < employee.length; i++){
-         if(employees[i] == employee) return true;
-      }
-      return false;
-    }
-    
+
     function check_position(int256 lat, int256 lon) public {
         require(check_existance(msg.sender));
         uint32 new_radius = calculate_radius(lat, lon);
@@ -55,8 +56,8 @@ contract refunderContract{
         }
     }
 
-    function pay(address payable emp_add) public{
-        EmployeeContrInfo[emp_add].isactive=false;
-        emp_add.transfer(EmployeeContrInfo[emp_add].amount);
+    function pay(address payable add) public{
+        add.transfer(contractInfo[add].budget);
+        contractInfo[add].status=false;
     }
 }
