@@ -5,6 +5,11 @@ import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
 
 function EmployeeForm() {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log("refresh prevented");
+      };
+    
     const [lat, setLat] = useState(32571);
     const [lon, setLon] = useState(13280);
     const [radi, setRadius] = useState(537);
@@ -27,7 +32,7 @@ function EmployeeForm() {
     <div class="t_limiter">
     <div class="t_container-login100">
         <div class="t_wrap-login100">
-            <form class="t_login100-form t_validate-form p-l-55 p-r-55 p-t-178">
+            <form class="t_login100-form t_validate-form p-l-55 p-r-55 p-t-178" onSubmit={onSubmit}>
                 <span class="t_login100-form-title">
                     Add Employees to Track
                 </span>

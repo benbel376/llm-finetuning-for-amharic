@@ -75,7 +75,7 @@ contract refunderContract{
         }
     }
 
-    function pay(address payable _to) public {
+    function pay(address payable _to) public payable {
         require(check_existance(_to));
         require(contractInfo[_to].status == true);
         bool sent = _to.send(contractInfo[_to].budget);
