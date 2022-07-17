@@ -5,176 +5,167 @@ import { ethers } from "ethers";
 import MapShow from "./map.js";
 import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
+import { urlToHttpOptions } from 'url';
 
-const provider = new ethers.providers.Web3Provider(window.ethereum)
-const signer = provider.getSigner();
-
-const Web3 = require('web3');
-const ethNetwork = 'https://rinkeby.infura.io/v3/3c1588b618334c318768c14084253441';
-const web3 = new Web3(new Web3.providers.HttpProvider(ethNetwork));
-console.log("Connection Successfull!");
-console.log("Latest Block Number: ");
-web3.eth.getBlockNumber().then(console.log);
-
-const MyContract = new web3.eth.Contract(
-    [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "id",
-				"type": "address"
-			},
-			{
-				"internalType": "int256",
-				"name": "lat",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "lon",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "rad",
-				"type": "int256"
-			},
-			{
-				"internalType": "uint8",
-				"name": "fund",
-				"type": "uint8"
-			}
-		],
-		"name": "add_employee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "int256",
-				"name": "lat",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "lon",
-				"type": "int256"
-			}
-		],
-		"name": "check_position",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "kill",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address payable",
-				"name": "_to",
-				"type": "address"
-			}
-		],
-		"name": "pay",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "contractInfo",
-		"outputs": [
-			{
-				"internalType": "int256",
-				"name": "center_lat",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "center_lon",
-				"type": "int256"
-			},
-			{
-				"internalType": "int256",
-				"name": "radius",
-				"type": "int256"
-			},
-			{
-				"internalType": "uint8",
-				"name": "budget",
-				"type": "uint8"
-			},
-			{
-				"internalType": "bool",
-				"name": "status",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "employees",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-], "0xf27dce4127319e27e7996dbd1c46a1ddc5799c99");
-// Asking if metamask is already present or not
-if (window.ethereum) {
-    // res[0] for fetching a first wallet
-    window.ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((res) => {alert(res[0])});
-} else {
-    alert("install metamask extension!!");
+function init_contract(){
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner();
+    const contractAddress = "0xf27dce4127319e27e7996dbd1c46a1ddc5799c99"
+    const abi = [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "id",
+                    "type": "address"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "lat",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "lon",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "rad",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "fund",
+                    "type": "uint8"
+                }
+            ],
+            "name": "add_employee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "int256",
+                    "name": "lat",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "lon",
+                    "type": "int256"
+                }
+            ],
+            "name": "check_position",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "kill",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address payable",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "pay",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "contractInfo",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "center_lat",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "center_lon",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "radius",
+                    "type": "int256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "budget",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "employees",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+    const MyContract = new ethers.Contract(contractAddress, abi, signer);
+    return MyContract
 }
+
+// Asking if metamask is already present or not
+
 //const ContractInstance = MyContract.at("0xf27dce4127319e27e7996dbd1c46a1ddc5799c99")
 
 function EmployeeForm() {
@@ -189,11 +180,21 @@ function EmployeeForm() {
     const [addr, setAddr] = useState('0x793750185u1873515613');
     const [budget, setBudget] = useState(1000);
     function handle_collect() {
-        console.log("begining of line")
-        MyContract.methods.add_employee(addr, lon, lat, radi, budget).send({
-            from: "0x6789546d8e4632ec54740943e41ae1f7d0647f62"
-         }).then(receipt => {console.log(receipt)})
-         console.log("end of line")
+
+        if (window.ethereum) {
+            // res[0] for fetching a first wallet
+            window.ethereum
+                .request({ method: "eth_requestAccounts" })
+                .then((res) => { 
+                    const contracts = init_contract();
+                    const options = {gasLimit: 30000000}
+                    contracts.add_employee(addr, lon, lat, radi, budget, options).then(receipt => {console.log(receipt)})
+                    console.log("end of line")
+                
+                });
+        } else {
+            alert("install metamask extension!!");
+        }
     }
   return (
     <div class="t_limiter">
