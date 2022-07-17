@@ -12,10 +12,6 @@ export default class App extends React.Component {
     errorMessage: '',
   };
 
-  // componentDidMount() {
-  //   this._getLocation();
-  // };
-
   _getLocation = async () => {
     const {status} = await Location.requestForegroundPermissionsAsync();
      if (status !== "granted") {
@@ -35,12 +31,8 @@ export default class App extends React.Component {
   }
    render() {
     return (
-      // <View style={styles.container}>
-      //   <Text>{JSON.stringify(this.state.location)}</Text>
-      // </View>
-
       <View style={styles.container}>   
-      <Button title="Show Location" onPress={this._getLocation}/>
+          <Button title="Show Location" onPress={this._getLocation}/>
           <StatusBar style='auto'/>
           <Text>{JSON.stringify(this.state.location.coords)}</Text>
       </View>
