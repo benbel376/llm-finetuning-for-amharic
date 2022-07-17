@@ -2,22 +2,16 @@ const { expect } = require('chai');
 
 var chai = require('chai');
 
-describe('Employer Unit Test', function () {
+describe('refunder test', function () {
     before(async function () {
-      Employer = await ethers.getContractFactory('Employer');
-      Employer = await Employer.deploy();
-      await Employer.deployed();
+      refunder = await ethers.getContractFactory('refunderContract');
+      refunder = await refunder.deploy();
+      await refunder.deployed();
     });
 
     it('retrieve returns a value previously stored', async function () {
-        await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
-      expect((await Employer.getAllEmployees()).toString()).to.equal('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
-      //expect((await Employer.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4')).toString()).to.equal('34.09', '98.43', '3:30');
-    });
-
-    // it('retrieve returns a value previously stored', async function () {
-    //   await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
-    //  expect((await Employer.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4')).toString()).to.equal('34.09', '98.43', '3:30');
-    // });
+        await refunder.add_employee('0x6789546d8E4632Ec54740943E41aE1f7D0647F62', '12309', '13515', "132", "0.001");
+      expect((await refunder.get_all).toString()).to.equal('0x6789546d8E4632Ec54740943E41aE1f7D0647F62');
+        });
 
   });
