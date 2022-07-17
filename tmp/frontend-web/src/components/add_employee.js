@@ -162,6 +162,9 @@ function init_contract(){
     return MyContract
 }
 
+// Asking if metamask is already present or not
+
+//const ContractInstance = MyContract.at("0xf27dce4127319e27e7996dbd1c46a1ddc5799c99")
 
 function EmployeeForm() {
     const onSubmit = (e) => {
@@ -174,29 +177,6 @@ function EmployeeForm() {
     const [radi, setRadius] = useState(537);
     const [addr, setAddr] = useState('0x793750185u1873515613');
     const [budget, setBudget] = useState(1000);
-    const [stat, setSwitcher] = useState(1);
-    const [page1, setPage1] = useState("block");
-    const [page2, setPage2] = useState("none");
-
-    let page1_style = {
-        display: page1
-     }
-    let page2_style = {
-        display: page2
-     }
-    function switcher(){
-        if(stat == 1){
-            setSwitcher(0)
-            setPage1("none")
-            setPage2("block")
-            console.log(page1)
-        }else{
-            setSwitcher(1)
-            setPage2("none")
-            setPage1("block")
-            console.log("here"+page1)
-        }
-    }
     function handle_collect() {
 
         if (window.ethereum) {
@@ -218,7 +198,7 @@ function EmployeeForm() {
     <div class="t_limiter">
     <div class="t_container-login100">
         <div class="t_wrap-login100">
-            <form style = {page1_style} class="t_login100-form t_validate-form p-l-55 p-r-55 p-t-178" onSubmit={onSubmit}>
+            <form class="t_login100-form t_validate-form p-l-55 p-r-55 p-t-178" onSubmit={onSubmit}>
                 <span class="t_login100-form-title">
                     Add Employees to Track
                 </span>
@@ -256,32 +236,6 @@ function EmployeeForm() {
                 <div class="t_container-login100-form-btn">
                     <button class="collect t_login100-form-btn" onClick={handle_collect}>
                         Add Employee
-                    </button>
-                </div>
-
-            </form>
-            <form style = {page2_style} class="t_login100-form t_validate-form p-l-55 p-r-55 p-t-178" onSubmit={onSubmit}>
-                <span class="t_login100-form-title">
-                    Pay Employee
-                </span>
-                <div class="t_title">
-                    Specify employee
-                </div>
-                <div class="t_wrap-input100 t_validate-input">
-                    <input id = "long" class="center_lon t_input100" type="text" placeholder="address" onChange={(e)=>{setLon(e.target.value)}}/>
-                    <span class="t_focus-input100"></span>
-                </div>
-                <div class="t_container-login100-form-btn">
-                    <button class="collect t_login100-form-btn" onClick={handle_collect}>
-                        Add Employee
-                    </button>
-                </div>
-
-            </form>
-            <form class="switcher t_login100-form t_validate-form p-l-55 p-r-55 p-t-178" onSubmit={onSubmit}>
-                <div class="switcher t_container-login100-form-btn">
-                    <button style={{background: 'black'}} class="switcher collect t_login100-form-btn" onClick={switcher}>
-                        change page
                     </button>
                 </div>
 
