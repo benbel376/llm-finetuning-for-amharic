@@ -1,51 +1,95 @@
-import React from 'react';
-import { Button,View, Text, StyleSheet } from 'react-native';
-// import { Location } from 'expo';
-import * as Location from "expo-location";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import Constants from 'expo-constants';
 
+// You can import from local files
+import AssetExample from './components/AssetExample';
 
-import { StatusBar} from 'expo-status-bar';
+let apiKey = 'q3oJmdxRxykoOc8bOuBpSyCFXXRoHrmo';
 
-export default class App extends React.Component {
-  state = {
-    location: {},
-    errorMessage: '',
-  };
+// or any pure javascript modules available in npm
+import { Card } from 'react-native-paper';
+import * as Location from 'expo-location';
 
-  _getLocation = async () => {
-    const {status} = await Location.requestForegroundPermissionsAsync();
-     if (status !== "granted") {
-      Alert.alert(
-        "Permission not granted",
-        "Allow the app to use location service.",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
-    }
-  const location = await Location.getCurrentPositionAsync();
-   this.setState({
-    location
-   })
-   
-  // alert(JSON.stringify(this.state.location));
-  }
-   render() {
-    return (
-      <View style={styles.container}>   
-          <Button title="Show Location" onPress={this._getLocation}/>
-          <StatusBar style='auto'/>
-          <Text>{JSON.stringify(this.state.location.coords)}</Text>
-      </View>
-    );
-   }
-  }
+export default function App() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [getLocation, setGetLocation] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+      }
+
+      Location.setGoogleApiKey(apiKey);
+
+      console.log(status);
+
+      let { coords } = await Location.getCurrentPositionAsync();
+
+      setLocation(coords);
+
+      console.log(coords);
+
+      if (coords) {
+        let { longitude, latitude } = coords;
+
+        let regionName = await Location.reverseGeocodeAsync({
+          longitude,
+          latitude,
+        });
+        setAddress(regionName[0]);
+        console.log(regionName, 'nothing');
+      }
+
+      // console.log();
+    })();
+  }, [getLocation]);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.big}>
+        {!location
+          ? 'Waiting'
+          : `Lat: ${location.latitude} \nLong: ${
+              location.longitude
+            } \n${JSON.stringify(address?.["subregion"])}`}
+      </Text>
+      <TouchableOpacity onPress={() => setGetLocation(!getLocation)}>
+        <View
+          style={{
+            height: 100,
+            backgroundColor: 'teal',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            marginTop: 20,
+          }}>
+          <Text style={styles.btnText}> GET LOCATION </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  big: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  btnText: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'white',
+  },
 });
-
