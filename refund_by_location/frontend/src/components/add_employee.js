@@ -2,10 +2,8 @@ import '../css/employee.css';
 import '../css/util.css';
 import {useState} from 'react';
 import { ethers } from "ethers";
-import MapShow from "./map.js";
 import '../images/cyber_punk.webp'
 import '../fonts/font-awesome-4.7.0/css/font-awesome.min.css';
-import { urlToHttpOptions } from 'url';
 
 function init_contract(){
     const provider = new ethers.providers.Web3Provider(window.ethereum)
