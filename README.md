@@ -12,12 +12,26 @@
 
 In this project, a mobile web app will be developed to obtain location information from a mobile sensor module and confirm that the user is in a specific location. The funding will be given if the provided location and the required location are compatible. The Solidity programming language will be used in this project to create the blockchain concept utilizing an Etherium smart contract. The user can also view the status of his or her fund on the front end.
 
-![image](https://user-images.githubusercontent.com/44437166/179428854-b1d83878-7c11-4709-b400-fdeaaea9c9c3.png)
-
+![image](https://user-images.githubusercontent.com/44437166/179430147-ebeec781-ab16-40bb-bdd9-6696d49be2be.png)
 
 ## Introduction
 The specific objectives implemented in this project are as follows.
-![image](https://user-images.githubusercontent.com/44437166/179428236-5689fbfa-2096-4c0d-8a58-d8edae8fa40a.png)
+1. Web app: 
+      * Add an employee’s address
+      * Define parameters for each employee:
+          * Geographic boundary
+          * Budget 
+      * Create a transaction with the above users’ data and send transaction
+      * Create another transaction to transfer the required budget to the smart contract.
+2. Smart contract backend:
+      * Store list of users and associated information in the backend after the transaction is verified.
+      * When users’ request for their requirements verify their identity and send their specific location requirement from the above list
+      * When users send their gps location, the smart contract will verify their identity, validate their gps info by referring to their stored requirement and record whether they fulfilled their requirement or not
+      * Approve fund release at the specified release time or deny.
+3. Mobile dapp: 
+      * Load location requirement from the smart contract
+      * continuously read gps information from the mobile sensors
+      * and send the gps to the smart contract at random time when the person confirms the send by pressing a button.
 
 ## Files
 > ### Frontend-mobile
