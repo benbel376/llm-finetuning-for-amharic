@@ -60,15 +60,6 @@ The project is organized into several tasks to achieve the business goals:
 7. Start the React frontend: `npm start`
 8. Open your browser and go to `http://localhost:3000` to interact with the RAG Ad Builder.
 
-## Contributors
-
-- Abel Bekele (@AbelBekele)
-- Birehan Anteneh (@birehan)
-- Ekram Kedir (@ekram-kedir)
-- Keriii (@Keriii)
-- Mubarek Hussen (@MubarekHussen)
-- Natnael Bekele (@natybkl)
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
