@@ -1,10 +1,4 @@
 # Amharic RAG Ad Builder
-## Business Need
-
-As Telegram gains prominence as a messaging platform, AIQEM recognizes the necessity to adapt its advertising strategy to better align with this evolving ecosystem. The focus is on improving the effectiveness of promotional efforts by integrating powerful AI capabilities for Amharic text manipulation. Specifically, the project aims to create an Amharic RAG pipeline that generates creative text ad content for Telegram channels based on campaign information, including brand details and product information.
-
-The success of this project ensures that advertisements are not only catchy but also highly relevant to the Telegram community. To achieve this, the technology must possess quality Amharic text embedding and text generation capabilities. The approach involves choosing a suitable open-source Large Language Model (LLM), such as Mistral, Llama 2, Falcon, or Stable AI 2, and further fine-tuning it to meet the business objectives.
-
 ## Project Overview
 
 The project is organized into several tasks to achieve the business goals:
