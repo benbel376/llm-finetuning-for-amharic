@@ -1,8 +1,4 @@
 # Amharic RAG Ad Builder
-## Enabling Quality Embedding and Text Generation for Amharic Language
-
-Welcome to the Amharic RAG Ad Builder repository! This project is initiated by AIQEM, an African startup specializing in AI and Blockchain solutions. The primary objective is to enhance the impact of technological innovations in the Ethiopian and African business landscape. The latest flagship project, Adbar, is an end-to-end AI-based Telegram Ad solution that optimally places ads to different Telegram channels through a network of bots and extensive data analysis.
-
 ## Business Need
 
 As Telegram gains prominence as a messaging platform, AIQEM recognizes the necessity to adapt its advertising strategy to better align with this evolving ecosystem. The focus is on improving the effectiveness of promotional efforts by integrating powerful AI capabilities for Amharic text manipulation. Specifically, the project aims to create an Amharic RAG pipeline that generates creative text ad content for Telegram channels based on campaign information, including brand details and product information.
